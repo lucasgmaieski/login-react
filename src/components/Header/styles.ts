@@ -1,8 +1,13 @@
 import { styled } from 'styled-components';
+import { ThemeType } from '../../reducers/themeReducer';
 
-export const Header = styled.div`
+type MainProps = {
+    state: ThemeType
+}
+export const Header = styled.div<MainProps>`
     color: #fff;
     background-color: #000;
+    background-color: ${props => props.state.status.background};
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -24,6 +29,11 @@ export const Nav = styled.nav`
         display: flex;
         list-style: none;
         gap: 50px;
+        li {
+            a{
+                color: #fff;
+            }
+        }
     }
 `;
 

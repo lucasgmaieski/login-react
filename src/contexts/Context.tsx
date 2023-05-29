@@ -17,12 +17,12 @@ const initialState = {
 export const Context = createContext<ContextType>({
     state: initialState,
     dispatch: () => null
-})
+});
 
 //mainReducer ao invés de executar uma função como é o de costume vai chamar uma das funções dos reducers que realmente fazem uma ação
 const mainReducer = (state: initialStateType, action: reducerActionType) => ({
     theme: themeReducer(state.theme, action)
-})
+});
 
 // Componente Provider para passar os valores para os Childrens
 export const ContextProvider = ({children}: React.PropsWithChildren) => {

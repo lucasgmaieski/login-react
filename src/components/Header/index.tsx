@@ -1,16 +1,55 @@
+import { Context } from '../../contexts/Context';
+import { useContext } from 'react';
+import { ThemeType } from '../../reducers/themeReducer';
 import * as C from './styles';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
+    const {state, dispatch} = useContext(Context);
+    
+    const handleTheme = () => {
+        if(state.theme.status.theme === 'light') {
+            dispatch({
+                type: 'CHANGE_STATUS',
+                payload: {
+                    status: {
+                        theme: 'dark',
+                        background: '#000',
+                        firstplan: '#363636',
+                        txtsecundary: '#a7a6a6',
+                        txtprimary: '#eeeeee'
+                    }
+                }
+            });
+        } else {
+            dispatch({
+                type: 'CHANGE_STATUS',
+                payload: {
+                    status: {
+                        theme: 'light',
+                        background: '#fff',
+                        firstplan: '#fff',
+                        txtsecundary: '#acacac',
+                        txtprimary: '#262626'
+                    }
+                }
+            });
+        }
+        
+    }
     return (
-        <C.Header>
+        <C.Header state={state.theme}>
             <C.Logo>
-                <img src="./src/assets/octo-logo.png" alt="Logo" />
+                <Link to={'/'}><img src="./src/assets/octo-logo.png" alt="Logo" /></Link>
             </C.Logo>
+            <p>{state.theme.status.theme}</p>
             <C.Nav>
                 <ul>
-                    <li>Sobre</li>
-                    <li>Planos</li>
-                    <li>Contato</li>
+                    <li><Link to={'/about'}>Sobre</Link></li>
+                    <li><Link to={'/plans'}>Planos</Link></li>
+                    <li><Link to={'/contact'}>Contato</Link></li>
+                    <li><Link to={'/members'}>Área de Membros</Link></li>
+                    <li><button onClick={handleTheme}>Trocar Tema</button></li>
                 </ul>
             </C.Nav>
         </C.Header>
