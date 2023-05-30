@@ -13,6 +13,7 @@ export const FormRegister = () => {
                 <input type="email" name="email" id="email" />
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" />
+                <input type="submit" value={'Enviar'}/>
             </form>
         </C.Container>
     );

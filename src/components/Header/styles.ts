@@ -5,9 +5,8 @@ type MainProps = {
     state: ThemeType
 }
 export const Header = styled.div<MainProps>`
-    color: #fff;
-    background-color: #000;
-    background-color: ${props => props.state.status.background};
+    color: ${props => props.state.status.txtprimary};
+    background-color: ${props => props.state.status.firstplan};
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,7 +22,7 @@ export const Logo = styled.div`
     }
 `;
 
-export const Nav = styled.nav`
+export const Nav = styled.nav<MainProps>`
     
     ul {
         display: flex;
@@ -31,7 +30,7 @@ export const Nav = styled.nav`
         gap: 50px;
         li {
             a{
-                color: #fff;
+                color: ${props => props.state.status.txtprimary};
             }
         }
     }

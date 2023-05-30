@@ -1,6 +1,5 @@
 import { Context } from '../../contexts/Context';
 import { useContext } from 'react';
-import { ThemeType } from '../../reducers/themeReducer';
 import * as C from './styles';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +27,7 @@ export const Header = () => {
                     status: {
                         theme: 'light',
                         background: '#fff',
-                        firstplan: '#fff',
+                        firstplan: '#eeeeee',
                         txtsecundary: '#acacac',
                         txtprimary: '#262626'
                     }
@@ -43,7 +42,7 @@ export const Header = () => {
                 <Link to={'/'}><img src="./src/assets/octo-logo.png" alt="Logo" /></Link>
             </C.Logo>
             <p>{state.theme.status.theme}</p>
-            <C.Nav>
+            <C.Nav state={state.theme}>
                 <ul>
                     <li><Link to={'/about'}>Sobre</Link></li>
                     <li><Link to={'/plans'}>Planos</Link></li>

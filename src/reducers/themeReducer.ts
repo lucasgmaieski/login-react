@@ -13,7 +13,7 @@ export const themeInitialState: ThemeType = {
     status: {
         theme: 'light',
         background: '#fff',
-        firstplan: '#fff',
+        firstplan: '#eeeeee',
         txtsecundary: '#acacac',
         txtprimary: '#262626'
     }
