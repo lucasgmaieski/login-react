@@ -6,6 +6,7 @@ import { Contact } from "../pages/Contact";
 import { Plans } from "../pages/Plans";
 import { RequireAuth } from "../RequireAuth";
 import { FormLogin } from "../components/FormLogin";
+import { FormRegister } from "../components/FormRegister";
 
 export const MainRoutes = () => {
     return useRoutes([
@@ -14,6 +15,7 @@ export const MainRoutes = () => {
         { path: '/members', element: <RequireAuth>{ <Members />}</RequireAuth> },
         { path: '/plans', element: <Plans />},
         { path: '/contact', element: <Contact />},
-        { path: '/login', element: <FormLogin />}
+        { path: '/login', element: <FormLogin />},
+        { path: '/register', element: <FormRegister />}
     ]);
 }

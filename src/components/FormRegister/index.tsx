@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import * as C from './styles';
 
 export const FormRegister = () => {
@@ -14,6 +15,10 @@ export const FormRegister = () => {
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" />
                 <input type="submit" value={'Enviar'}/>
+
+                <div>
+                    Já tem uma conta? <Link to={'/login'}>Fazer Login</Link>
+                </div>
             </form>
         </C.Container>
     );
