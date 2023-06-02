@@ -1,13 +1,13 @@
 import { reducerActionType } from "../types/reducerActionType";
 
+type Users = {
+    name: string;
+    email: string;
+    password: string;
+    dateofbirth: FormData
+}
 export type AuthType = {
-    users:{
-            name: string;
-            email: string;
-            password: string;
-            dateofbirth: FormData
-    }[];
-    
+    users: Users[];
     auth: boolean
 }
 export const AuthInitialState = {
@@ -24,7 +24,6 @@ export const AuthInitialState = {
 export const authReducer = (state: AuthType , action: reducerActionType) => {
     switch (action.type) {
         case 'ADD_USER':
-            const newUser = {}
             //verificar se o usuario já existe
             const userExists = state.users.map((user) => (
                 user.email === action.payload.users.email
@@ -32,7 +31,14 @@ export const authReducer = (state: AuthType , action: reducerActionType) => {
             if(userExists.includes(true)) {
                 return state;
             } else {
-                
+                const newUser = {...state};
+                newUser.users.push({
+                    name: action.payload.users.name,
+                    email: action.payload.users.email,
+                    password: action.payload.users.password,
+                    dateofbirth: action.payload.users.dateofbirth,
+                })
+
             }
             //adicionar caso ainda não exista
             return {...state, newUser}
