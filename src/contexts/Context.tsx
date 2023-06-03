@@ -1,9 +1,11 @@
 import React, { createContext, useReducer } from "react";
 import { reducerActionType } from "../types/reducerActionType";
 import { themeInitialState, ThemeType, themeReducer } from '../reducers/themeReducer';
+import { authInitialState, AuthType, authReducer } from '../reducers/authReducer';
 
 type initialStateType = {
     theme: ThemeType;
+    authentication: AuthType;
 }
 type ContextType = {
     state: initialStateType;
@@ -11,7 +13,8 @@ type ContextType = {
 }
 
 const initialState = {
-    theme: themeInitialState
+    theme: themeInitialState,
+    authentication: authInitialState
 }
 // Context é a variavel que recebe o metodo createContext que cria o Provider e também permite consumir o Dados Globais
 export const Context = createContext<ContextType>({
@@ -21,7 +24,8 @@ export const Context = createContext<ContextType>({
 
 //mainReducer ao invés de executar uma função como é o de costume vai chamar uma das funções dos reducers que realmente fazem uma ação
 const mainReducer = (state: initialStateType, action: reducerActionType) => ({
-    theme: themeReducer(state.theme, action)
+    theme: themeReducer(state.theme, action),
+    authentication: authReducer(state.authentication, action)
 });
 
 // Componente Provider para passar os valores para os Childrens

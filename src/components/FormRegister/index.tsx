@@ -25,9 +25,11 @@ export const FormRegister = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    console.log(state.authentication.users)
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log('nome:' + nameInput);
+        console.log('email:' + emailInput);
         dispatch({
             type: 'ADD_USER',
             payload: {
@@ -41,26 +43,32 @@ export const FormRegister = () => {
                 ],
                 auth: false
             }
-        })
+        });
 
     }
     return (
         <C.Container >
-            <form action="">
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Nome Completo:</label>
                 <input type="text" name="name" id="name" onChange={handleInputChange} value={nameInput}/>
                 <label htmlFor="dateofbirth">Data de Nascimento</label>
-                <input type="date" name="dateofbirth" id="dateofbirth" onChange={handleInputChange} value={dateofbirthInput}/>
+                <input type="text" name="dateofbirth" id="dateofbirth" onChange={handleInputChange} value={dateofbirthInput}/>
                 <label htmlFor="email">E-mail:</label>
                 <input type="email" name="email" id="email" onChange={handleInputChange} value={emailInput}/>
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" onChange={handleInputChange} value={passwordInput}/>
-                <input type="submit" onSubmit={handleSubmit} value={'Enviar'}/>
+                <input type="submit"  value={'Enviar'}/>
+                {/* <button type="submit">Enviar</button> */}
 
                 <div>
                     Já tem uma conta? <Link to={'/login'}>Fazer Login</Link>
                 </div>
             </form>
+            <div>usuarios: 
+                {state.authentication.users.map((item, index) =>( 
+                    <p key={index}>{item.name}</p>
+                ))}
+            </div>
         </C.Container>
     );
 }
