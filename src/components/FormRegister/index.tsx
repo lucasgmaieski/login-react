@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as C from './styles';
 import { ChangeEvent, useContext, useState } from 'react';
 import { Context } from '../../contexts/Context';
@@ -9,6 +9,8 @@ export const FormRegister = () => {
     const [dateofbirthInput, setDateofbirthInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+    const [registerSucess, setRegisterSucess] = useState(false);
+    const navigate = useNavigate();
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.id == 'name') {
@@ -25,12 +27,11 @@ export const FormRegister = () => {
         }
     }
 
-    console.log(state.authentication.users)
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('nome:' + nameInput);
-        console.log('email:' + emailInput);
-        dispatch({
+        let usersBeforeAdd = state.authentication.users.length;
+        console.log("usuarios antes do cadastro: "+usersBeforeAdd);
+        await dispatch({
             type: 'ADD_USER',
             payload: {
                 users: [
@@ -45,6 +46,18 @@ export const FormRegister = () => {
             }
         });
 
+        if(state.authentication.users.length > usersBeforeAdd) {
+            console.log("usuarios depois do cadastro:" + state.authentication.users.length);
+            setRegisterSucess(true);
+            setNameInput('');
+            setEmailInput('');
+            setPasswordInput('');
+            setDateofbirthInput('');
+            setTimeout(() => {
+                navigate('/login');
+                setRegisterSucess(false);
+            }, 3000);
+        }
     }
     return (
         <C.Container >
@@ -58,8 +71,9 @@ export const FormRegister = () => {
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" onChange={handleInputChange} value={passwordInput}/>
                 <input type="submit"  value={'Enviar'}/>
-                {/* <button type="submit">Enviar</button> */}
-
+                {registerSucess && 
+                    <div>Cadastro realizado com sucesso!</div>
+                }
                 <div>
                     Já tem uma conta? <Link to={'/login'}>Fazer Login</Link>
                 </div>

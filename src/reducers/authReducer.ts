@@ -8,34 +8,35 @@ type Users = {
 }
 export type AuthType = {
     users: Users[];
-    auth: boolean
+    auth: boolean;
+    userLogged: string
 }
 export const authInitialState = {
     users: [
         {
-            name: 'lu',
-            email: 'lu@cas.com',
-            password: '123',
+            name: 'Admin',
+            email: 'admin@admin.com',
+            password: '123456',
             dateofbirth: '13121996'
         }
     ],
-    auth: false
+    logged: false,
+    userLogged: ''
+
 }
 export const authReducer = (state: AuthType , action: reducerActionType) => {
     switch (action.type) {
         case 'ADD_USER':
-            console.log('name enviado: ' + action.payload.users[0].name);
-            //verificar se o usuario já existe
             const userExists = state.users.map((user) => (
-                user.email === action.payload.users.email
+                user.email === action.payload.users[0].email
             ));
+
             const newUser = {...state};
             if(userExists.includes(true)) {
                 console.log('usuario já existe');
                 console.log(state);
                 return state;
             } else {
-                console.log('ta entrando aqui e não existe esse usuario ainda');
                 newUser.users.push({
                     name: action.payload.users[0].name,
                     email: action.payload.users[0].email,
