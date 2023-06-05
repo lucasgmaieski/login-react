@@ -42,7 +42,8 @@ export const FormRegister = () => {
                         dateofbirth: dateofbirthInput
                     }
                 ],
-                auth: false
+                logged: false,
+                userLogged: ''
             }
         });
 

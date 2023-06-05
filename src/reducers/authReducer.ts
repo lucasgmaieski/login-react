@@ -8,7 +8,7 @@ type Users = {
 }
 export type AuthType = {
     users: Users[];
-    auth: boolean;
+    logged: boolean;
     userLogged: string
 }
 export const authInitialState = {
@@ -44,17 +44,31 @@ export const authReducer = (state: AuthType , action: reducerActionType) => {
                     dateofbirth: action.payload.users[0].dateofbirth,
                 });
             }
-
             //adicionar caso ainda não exista
             return {...state, users:newUser.users}
 
         case 'AUTH_USER':
             //se o email e senha baterem 
-            return {...state, auth: true};
-            
-            //se não
-            return {...state, auth: false};
-            break;
+            const auxState = {...state};
+            state.users.forEach(user => {
+                if(user.email === action.payload.users[0].email && user.email !== '') {
+                    if(user.password === action.payload.users[0].password && user.password !== '') {
+                        state.logged = true;
+                        state.userLogged = action.payload.users[0].email;
+                        return {...state};
+                    } else {
+                        state.logged = false;
+                        state.userLogged = '';
+                        return {...state};
+                    }
+                }
+            });
+            return {...state};
+
+        case 'LOGOUT_USER':
+            state.logged = false;
+            state.userLogged = '';
+            return {...state};
         default:
             return state;
     }

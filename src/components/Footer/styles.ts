@@ -7,4 +7,6 @@ export const Footer = styled.footer<MainProps>`
     background-color: ${props => props.state.status.firstplan};
     color: ${props => props.state.status.txtprimary};
     text-align: center;
+    padding: 20px 0;
+    
 `;
