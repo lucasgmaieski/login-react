@@ -61,7 +61,7 @@ export const FormRegister = () => {
         }
     }
     return (
-        <C.Container >
+        <C.Container state={state.theme}>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Nome Completo:</label>
                 <input type="text" name="name" id="name" onChange={handleInputChange} value={nameInput}/>
